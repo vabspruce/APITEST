@@ -1,0 +1,40 @@
+<html ng-app="myApp">
+	<head>
+	<script src="angular.min.js"></script>
+	<script>
+		var myapp  = angular.module("myApp",[]);
+		myapp.controller("myCtrl",function($scope,$http){
+			$http.post("http://localhost:8080/Spring-Hibernate/getAll").then(
+					function(response){
+						$scope.products=response.data;
+					})
+		});
+		
+//one way data binding
+	</script>
+
+	</head>
+	<body >
+		<div >
+			10 + 20 = {{10 + 20}}<br>
+			message=>{{message}}
+		</div>
+		<div ng-controller="myCtrl">
+			message=>{{message}} // view value
+			<br>
+			<input type="text" ng-model="message"/> reset
+			<br>
+			<p>{{nmsg}}</p>
+			<input type="text" ng-model="nmsg"/> reset ,set
+
+			<ol>
+				<li ng-repeat="ob in products | filter: nmsg">
+					Product Name:{{ob.ProductName}}<br>
+					Product Id:{{ob.ProductID}}<br>
+					
+				</li>
+			</ol>
+		</div>
+		
+	</body>
+</html>
